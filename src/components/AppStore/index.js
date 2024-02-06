@@ -9,10 +9,12 @@ const SEARCH_ICON_URL =
   'https://assets.ccbp.in/frontend/react-js/app-store/app-store-search-img.png'
 
 const tabsList = [
+  {tabId: 'ALL', displayText:'All'},
   {tabId: 'SOCIAL', displayText: 'Social'},
   {tabId: 'GAMES', displayText: 'Games'},
   {tabId: 'NEWS', displayText: 'News'},
   {tabId: 'FOOD', displayText: 'Food'},
+ 
 ]
 
 const appsList = [
@@ -311,14 +313,16 @@ class AppStore extends Component {
     this.setState({searchInput: event.target.value})
   }
 
-  getActiveTabApps = searchedApps => {
-    const {activeTabId} = this.state
+  getActiveTabApps = (searchedApps) => {
+    const { activeTabId } = this.state;
+    if (activeTabId === 'ALL') {
+      return searchedApps; // Return all apps if the active tab is 'ALL'
+    }
     const filteredApps = searchedApps.filter(
-      eachSearchedApp => eachSearchedApp.category === activeTabId,
-    )
-
-    return filteredApps
-  }
+      (eachSearchedApp) => eachSearchedApp.category === activeTabId
+    );
+    return filteredApps;
+  };
 
   getSearchResults = () => {
     const {searchInput} = this.state
